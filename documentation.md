@@ -1,14 +1,14 @@
 # Wtęp
 
-Model ma za zadanie ogadnąć który gracz wygra partię szachów. Oczywiście nie da się przewidzieć kto wygra, bo to zawsze zalezy od wielu czynników, ale byłem ciekaw, czy kiedy zna się ELO graczy, zagrany debiut, długośc fazy debiutowej oraz format gry, czy da się przewidzieć, jaką szansę na wygraną ma kazdy z graczy? Byłem tez ciekaw, jak ELO graczy wpływa na popularność debiutu, skuteczność debiutu, oraz status zakończenia (mat, rezygnacja, itd).
+Model ma za zadanie ogadnąć który gracz wygra partię szachów. Oczywiście nie da się przewidzieć kto wygra, bo to zawsze zależy od wielu czynników, ale byłem ciekaw, czy kiedy zna się ELO graczy, zagrany debiut, długość fazy debiutowej oraz format gry, czy da się przewidzieć, jaką szansę na wygraną ma każdy z graczy? Byłem też ciekaw, jak ELO graczy wpływa na popularność debiutu, skuteczność debiutu, oraz status zakończenia (mat, rezygnacja, itd).
 
 # Baza danych
 
-Bazy danych pobieram z Kaggle. Istnieją tam wielkie bazy, posiadające nawet ponad kilka milionów partii, jednak na początku uzyłem plik z 20,000+ partiami. Nie musiałem za bardzo modyfikować tych danych, jednak usunąłem parę niepotrzebnych parametrów i parę parametrów które nie powinny być znane podczas fazy debiutowej (takie jak długość partii w turach). Zmodyfikowałem równiez White ELO i Black ELO na Average ELO oraz ELO difference, poniewaz dane w takim formacie bedą wydajniejsze i skuteczniejsze. Aby zwiększyć wydajność, dane zostały znormalizowane.
+Bazy danych pobieram z Kaggle. Istnieją tam wielkie bazy, posiadające nawet ponad kilka milionów partii, jednak na początku użyłem plik z 20,000+ partiami. Nie musiałem za bardzo modyfikować tych danych, jednak usunąłem parę niepotrzebnych parametrów i parę parametrów które nie powinny być znane podczas fazy debiutowej (takie jak długość partii w turach). Zmodyfikowałem równiez White ELO i Black ELO na Average ELO oraz ELO difference, ponieważ dane w takim formacie bedą wydajniejsze i skuteczniejsze. Aby zwiększyć wydajność, dane zostały znormalizowane.
 
 # Klasyfikacja
 
-Uzyłem Decision Tree, K Nearest Neighbours, Naive Bayes, oraz sieci neuronowych. Spodziewałem się, ze sieci neuronowe okarzą się najskuteczniejsze, jednak zaskakująco wysoki wynik osiągnął tez Decision Tree.
+Użyłem Decision Tree, K Nearest Neighbours, Naive Bayes, oraz sieci neuronowych. Spodziewałem się, ze sieci neuronowe okażą się najskuteczniejsze, jednak zaskakująco wysoki wynik osiągnął też Decision Tree.
 
 Wyniki:
 
@@ -19,18 +19,22 @@ Naive Bayes Accuracy: 0.13742107012296445
 Neural Network Accuracy: 0.6191425722831505
 ```
 
-Nie są to bardzo dokładne modele, jednak nalezy pamiętać, ze nie da się przewidzieć kto wygra w szachach. Jedyne co robimy to dajemy kazdemu z graczy prawdopodobienstwo.
+Nie są to bardzo dokładne modele, jednak należy pamiętać, ze nie da się przewidzieć kto wygra w szachach. Jedyne co robimy to dajemy każdemu z graczy prawdopodobienstwo.
 
-Patrząc na te wyniki z testów, postanowiłem odrzucić KNN oraz Naive Bayes. Decision Tree równiez tez musiałem odrzucić, poniewaz model ten nie pozwala na obliczania prawdopodobienstw. Zostały więc sieci neuronowe. Następnie, uzyłem ten wytrenowany model na kilku moich partiach. zeby zobaczyć, jakie miałem szanse na zwycięstwo. Oto kilka wyników z gier z pliku new_game.csv:
+Patrząc na te wyniki z testów, postanowiłem odrzucić KNN oraz Naive Bayes. Decision Tree również tez musiałem odrzucić, ponieważ model ten nie pozwala na obliczania prawdopodobieństw. Zostały więc sieci neuronowe. Następnie, użyłem ten wytrenowany model na kilku moich partiach. zeby zobaczyć, jakie miałem szanse na zwycięstwo. Oto kilka wyników z gier z pliku new_game.csv:
 
 ```
-Expected winner: white
+rated,increment_code,opening_eco,opening_ply,white_rating,black_rating,winner
+TRUE,10+0,B02,6,1026,979,white
 Neural Network Probabilities:
  black    0.306370
 draw     0.044712
 white    0.648918
 Name: 0, dtype: float64
 
+
+rated,increment_code,opening_eco,opening_ply,white_rating,black_rating,winner
+TRUE,10+0,B02,5,1012,987,white
 Expected winner: white
 Neural Network Probabilities:
  black    0.324784
@@ -38,6 +42,8 @@ draw     0.046840
 white    0.628376
 Name: 1, dtype: float64
 
+rated,increment_code,opening_eco,opening_ply,white_rating,black_rating,winner
+TRUE,10+0,B02,4,1050,994,white
 Expected winner: white
 Neural Network Probabilities:
  black    0.296836
@@ -45,6 +51,8 @@ draw     0.045555
 white    0.657610
 Name: 2, dtype: float64
 
+rated,increment_code,opening_eco,opening_ply,white_rating,black_rating,winner
+TRUE,10+0,D00,2,1201,1001,white
 Expected winner: white
 Neural Network Probabilities:
  black    0.137303
@@ -52,6 +60,8 @@ draw     0.067924
 white    0.794774
 Name: 3, dtype: float64
 
+rated,increment_code,opening_eco,opening_ply,white_rating,black_rating,winner
+TRUE,10+0,C44,6,991,965,white
 Expected winner: white
 Neural Network Probabilities:
  black    0.316355
@@ -59,6 +69,8 @@ draw     0.036637
 white    0.647007
 Name: 4, dtype: float64
 
+rated,increment_code,opening_eco,opening_ply,white_rating,black_rating,winner
+TRUE,10+0,B27,3,949,972,white
 Expected winner: white
 Neural Network Probabilities:
  black    0.332836
@@ -66,6 +78,8 @@ draw     0.045496
 white    0.621667
 Name: 5, dtype: float64
 
+rated,increment_code,opening_eco,opening_ply,white_rating,black_rating,winner
+TRUE,10+0,B22,6,979,976,white
 Expected winner: white
 Neural Network Probabilities:
  black    0.430961
@@ -73,6 +87,8 @@ draw     0.029385
 white    0.539654
 Name: 6, dtype: float64
 
+rated,increment_code,opening_eco,opening_ply,white_rating,black_rating,winner
+TRUE,10+0,B02,5,1012,1300,black
 Expected winner: black
 Neural Network Probabilities:
  black    0.723016
@@ -80,6 +96,8 @@ draw     0.039079
 white    0.237905
 Name: 7, dtype: float64
 
+rated,increment_code,opening_eco,opening_ply,white_rating,black_rating,winner
+TRUE,10+0,B02,4,1050,1250,black
 Expected winner: black
 Neural Network Probabilities:
  black    0.640921
@@ -88,15 +106,15 @@ white    0.315544
 Name: 8, dtype: float64
 ```
 
-Jak widać, w kazdym przykładzie model poprawnie odgadnął gracza który wygrał. W większości miejscach gracz wygrywający miał więcej ELO, więc dałoby się odgadnąć i bez modulu, jednak w partii 6 zwycięzca miał mniej ELO, co oznacza, ze model poprawnie wziął pod uwagę tez inne czynniki, takie jak debiut. Ostatnie 2 partie posiadają zmodyfikowe ELO aby zobaczyć, czy model poprawnie da większą szansę graczowi z większym ELO.
+Jak widać, w każdym przykładzie model poprawnie odgadnął gracza który wygrał. W większości miejscach gracz wygrywający miał więcej ELO, więc dałoby się odgadnąć i bez modulu, jednak w partii 6 zwyciężca miał mniej ELO, co oznacza, ze model poprawnie wziął pod uwagę tez inne czynniki, takie jak debiut. Ostatnie 2 partie posiadają zmodyfikowe ELO aby zobaczyć, czy model poprawnie da większą szansę graczowi z większym ELO.
 
 # Asocjacje
 
-Ostatnim etapem jest szukanie ciekawych zasad z uzyciem apriori.
+Ostatnim etapem jest szukanie ciekawych zasad z użyciem apriori.
 
-Podzieliłem ELO na dwie kategorie, HIGH, które oznacza bardzo wysokie ELO, jednak nie na poziomie arcymistrzów, a nizsze na LOW
+Podzieliłem ELO na dwie kategorie, HIGH, które oznacza bardzo wysokie ELO, jednak nie na poziomie arcymistrzów, a niższe na LOW
 
-Na poczatku, zbadajmy jak ELO graczy ma znaczenie na status zakończenia gry:
+Na początku, zbadajmy jak ELO graczy ma znaczenie na status zakończenia gry:
 
 ```
    antecedents  consequents   support  confidence      lift
@@ -110,7 +128,7 @@ Na poczatku, zbadajmy jak ELO graczy ma znaczenie na status zakończenia gry:
 3        (low)       (draw)  0.039336    0.042499  0.940896
 ```
 
-Patrząc na wyniki mozna odczytać, ze gracze z niskim ELO zdecydowanie częściej kończą grę matem. Wynika to z tego, ze doświadczeni gracze wiedzą, kiedy partia jest nie do wygrania, i rezygnują, by nie tracić swego czasu oraz przeciwnika, podczas gdy na nizszych poziomach graczę częściej liczą na błąd przeciwnika.
+Patrząc na wyniki można odczytać, ze gracze z niskim ELO zdecydowanie częściej kończą grę matem. Wynika to z tego, ze doświadczeni gracze wiedzą, kiedy partia jest nie do wygrania, i rezygnują, by nie tracić swego czasu oraz przeciwnika, podczas gdy na niższych poziomach graczę częściej liczą na błąd przeciwnika.
 
 Następnie debiuty. Spróbujemy zobaczyć, jak ELO wpływa na skuteczność openingu. Interesują więc nas asocjacje typu (ELO, OPENING) -> (WINNER)
 
@@ -132,9 +150,9 @@ Oznacza to więc, ze statystycznie, na podstawie posiadanych danych, jezeli chce
 (B02, low)     (white)  0.004138    0.525316  1.053574
 ```
 
-Dowidziałem się równiez, ze grając moim ulubionym debiutem jako białym (Ponziani Opening C44) mam odrobinę lepsze szanse, ale jako czarny (Alekhine's defence B02) mam gorsze szanse.
+Dowidziałem się również, ze grając moim ulubionym debiutem jako białym (Ponziani Opening C44) mam odrobinę lepsze szanse, ale jako czarny (Alekhine's defence B02) mam gorsze szanse.
 
-Byłem tez ciekaw jak skuteczny jest Polish Opening dla białych na niskich poziomach, i niestety nie jest za skuteczny.
+Byłem też ciekaw jak skuteczny jest Polish Opening dla białych na niskich poziomach, i niestety nie jest za skuteczny.
 
 ```
 (A00, low)     (black)  0.027720    0.570842  1.257269
@@ -153,7 +171,7 @@ Jak widać, debiuty te są bardzo skuteczne nawet na niskich poziomach.
 
 # Podsumowanie
 
-Udało się wytrenować model, które po fazie debiutowej potrafi powiedzieć, która strona ma większe szanse na zwycięstwo. Poprzez zasady asocjacyjne, dowiedziliśmy się, którymi debiutami powinno się grać na nizszych poziomach, zeby zmaksymalizować swoją szansę na zwyciestwo.
+Udało się wytrenować model, które po fazie debiutowej potrafi powiedzieć, która strona ma większe szanse na zwycięstwo. Poprzez zasady asocjacyjne, dowiedziliśmy się, którymi debiutami powinno się grać na nizszych poziomach, zeby zmaksymalizować swoją szansę na zwycięstwo.
 
 
 ### Źródła
