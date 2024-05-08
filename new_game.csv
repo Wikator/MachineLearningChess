@@ -1,0 +1,10 @@
+rated,increment_code,opening_eco,opening_ply,white_rating,black_rating,winner
+TRUE,10+0,B02,6,1026,979,white
+TRUE,10+0,B02,5,1012,987,white
+TRUE,10+0,B02,4,1050,994,white
+TRUE,10+0,D00,2,1201,1001,white
+TRUE,10+0,C44,6,991,965,white
+TRUE,10+0,B27,3,949,972,white
+TRUE,10+0,B22,6,979,976,white
+TRUE,10+0,B02,5,1012,1300,black
+TRUE,10+0,B02,4,1050,1250,black
